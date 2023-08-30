@@ -6,7 +6,7 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
-  currentPage: "recipes" | "shopping-list" = "shopping-list";
+  currentPage: "recipes" | "shopping-list" = "recipes";
 
   onPageChange(name: "recipes" | "shopping-list") {
     this.currentPage = name;
