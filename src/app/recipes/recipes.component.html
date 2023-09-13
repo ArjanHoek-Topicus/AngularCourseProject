@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-md-5">
-    <app-recipe-list (recipeClick)="selectRecipe($event)"></app-recipe-list>
+    <app-recipe-list></app-recipe-list>
   </div>
   <div class="col-md-7">
     <app-recipe-detail
-      *ngIf="selectedRecipe; else noRecipeSelected"
+      *ngIf="selectedRecipe$ | async; else noRecipeSelected"
       [recipe]="selectedRecipe"
     ></app-recipe-detail>
     <ng-template #noRecipeSelected>

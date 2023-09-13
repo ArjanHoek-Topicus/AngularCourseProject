@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { Recipe } from "src/models/recipe.model";
+import { RecipesService } from "../services/recipes.service";
+import { ReplaySubject } from "rxjs";
 
 @Component({
   selector: "app-recipes",
@@ -7,9 +9,11 @@ import { Recipe } from "src/models/recipe.model";
   styleUrls: ["./recipes.component.css"],
 })
 export class RecipesComponent {
-  selectedRecipe: Recipe = null;
+  selectedRecipe$: ReplaySubject<Recipe>;
 
-  selectRecipe(recipe: Recipe): void {
-    this.selectedRecipe = recipe;
+  constructor(private recipesService: RecipesService) {}
+
+  ngOnInit(): void {
+    this.selectedRecipe$ = this.recipesService.recipeSelected;
   }
 }

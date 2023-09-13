@@ -1,18 +1,22 @@
-import { Component } from "@angular/core";
-import { ingredientMock1, ingredientMock2 } from "src/mocks/ingredient.mock";
+import { Component, OnInit } from "@angular/core";
 import { Ingredient } from "src/models/ingredient.model";
+import { ShoppingListService } from "../services/shopping-list.service";
 
 @Component({
   selector: "app-shopping-list",
   templateUrl: "./shopping-list.component.html",
   styleUrls: ["./shopping-list.component.css"],
 })
-export class ShoppingListComponent {
-  ingredients: Ingredient[] = [ingredientMock1, ingredientMock2];
+export class ShoppingListComponent implements OnInit {
+  ingredients: Ingredient[];
 
-  constructor() {}
+  constructor(private shoppingListService: ShoppingListService) {}
 
-  addIngredient(ingredient: Ingredient): void {
-    this.ingredients.push(ingredient);
+  ngOnInit(): void {
+    this.ingredients = this.shoppingListService.getIngredients();
+
+    this.shoppingListService.ingredientsChanged.subscribe((ingredients) => {
+      this.ingredients = ingredients;
+    });
   }
 }
