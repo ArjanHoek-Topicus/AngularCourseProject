@@ -7,12 +7,8 @@ import { Recipe } from "src/models/recipe.model";
   templateUrl: "./recipe-list.component.html",
   styleUrls: ["./recipe-list.component.css"],
 })
-export class RecipeListComponent implements OnInit {
-  recipes: Recipe[];
+export class RecipeListComponent {
+  recipes$ = this.recipesService.recipes$;
 
   constructor(private recipesService: RecipesService) {}
-
-  ngOnInit(): void {
-    this.recipes = this.recipesService.getRecipes();
-  }
 }

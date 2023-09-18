@@ -1,23 +1,21 @@
-import { EventEmitter, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 import { ingredientMock1, ingredientMock2 } from "src/mocks/ingredient.mock";
 import { Ingredient } from "src/models/ingredient.model";
 
 @Injectable({ providedIn: "root" })
 export class ShoppingListService {
-  public ingredientsChanged = new EventEmitter<Ingredient[]>();
-
-  private ingredients: Ingredient[] = [ingredientMock1, ingredientMock2];
+  private ingredients = new BehaviorSubject<Ingredient[]>([
+    ingredientMock1,
+    ingredientMock2,
+  ]);
+  public ingredients$ = this.ingredients.asObservable();
 
   addIngredient(ingredient: Ingredient): void {
     this.addIngredients([ingredient]);
   }
 
   addIngredients(ingredients: Ingredient[]): void {
-    this.ingredients.push(...ingredients);
-    this.ingredientsChanged.emit(this.getIngredients());
-  }
-
-  getIngredients(): Ingredient[] {
-    return [...this.ingredients];
+    this.ingredients.next([...this.ingredients.getValue(), ...ingredients]);
   }
 }

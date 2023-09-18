@@ -1,5 +1,4 @@
 import { Component, Input } from "@angular/core";
-import { RecipesService } from "src/app/services/recipes.service";
 import { Recipe } from "src/models/recipe.model";
 
 @Component({
